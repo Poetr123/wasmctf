@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <title>WASM XOR Vault</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{background:#081026;color:#bfe7ff;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;margin:2rem}
+    .card{background:#061024;padding:1.4rem;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.6);max-width:800px}
+    code{background:#021827;padding:.2rem .4rem;border-radius:4px}
+    pre{background:#021827;padding:1rem;border-radius:8px;overflow:auto;color:#dff}
+    input,button{padding:.6rem;border-radius:8px;border:0}
+    input{width:70%;margin-right:.5rem}
+    button{background:#ff7a59;color:white;cursor:pointer}
+    .hint{color:#99d}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🔐 WASM XOR Vault (tingkat: Mediummm)</h1>
+    <p>Eh, kita nyomot pesan dari agen musuh. Tapi si musuh pintar! Pesan itu di-XOR pakai <em>kunci rahasia</em> yang disimpen di WebAssembly. Kamu bisa buka? Atau cuma bisa ngemil keripik? xixixi</p>
+
+    <h3>Pesan terenkripsi (hex) - jangan ngupil, catet:</h3>
+    <pre id="cipher">60544a6b5704634d6f7a536f735251734b6f7d454d</pre>
+
+    <p>Masukin tebakan flag kamu (format: <code>ptz{...}</code>)</p>
+    <div>
+      <input id="guess" placeholder="ptz{...}" />
+      <button id="check">Cek Bos!</button>
+    </div>
+    <p id="result" style="margin-top:1rem"></p>
+
+    <hr/>
+    <p class="hint">Petunjuk (kalau kamu ramah): payload di-XOR dengan key berulang (3 byte). Keynya tinggal di file <code>checker.wasm</code>. Jangan malas, buka network tab — terus klik kanan → save → buka dengan <code>wasm2wat</code> atau hex editor. Kalau mau cheat, buka console juga bisa, tapi itu sayang.</p>
+
+    <p style="font-size:.85rem;color:#9ab">Note: challenge ini untuk latihan. Silakan kembangkan untuk lomba sendiri. Flag contoh ada di <code>generator.py</code> kalau mau tes.</p>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
