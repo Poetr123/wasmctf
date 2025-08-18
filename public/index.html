@@ -5,133 +5,85 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MathCTF? Tergantung niat</title>
  <style>
-  :root {
-    --bg: #0b1221;
-    --card: #0b1726;
-    --accent: #2ea8ff;
-    --text: #dbefff;
-    --muted: #94b7d8;
-    --success: #3cffc9; /* lebih neon */
-    --error: #ff3366;   /* merah lebih ngejreng */
-  }
-  body {
-    margin: 0;
-    font-family: "Comic Sans MS", Inter, Roboto, "Segoe UI", system-ui, sans-serif;
-    background: linear-gradient(180deg,var(--bg),#021022);
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    padding: 1rem;
-  }
-  main.card {
-    background: var(--card);
-    padding: 2rem;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 720px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    text-align: center;
-    animation: floaty 3s ease-in-out infinite;
-  }
-  h1 {
-    margin: 0 0 .5rem;
-    color: var(--accent);
-    font-size: 1.5rem;
-    animation: bounce 2s infinite;
-  }
-  p {
-    margin: .6rem 0;
-    color: var(--muted);
-  }
-  .actions { margin-top: 1rem; }
-  a.button {
-    display: inline-block;
-    padding: .6rem .9rem;
-    background: var(--accent);
-    color: #021022;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: 0.3s;
-    box-shadow: 0 0 15px rgba(46,168,255,0.5);
-  }
-  a.button:hover {
-    background: #58bbff;
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(46,168,255,0.9);
-  }
-  .form-row { margin-top: 1.25rem; display:flex; gap:.5rem; }
-  input[type=text] {
-    flex: 1;
-    padding: .6rem;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(255,255,255,0.05);
-    color: var(--text);
-    font-size: 1rem;
-  }
-  button#submitBtn {
-    padding: .6rem 1rem;
-    border-radius: 10px;
-    border: none;
-    background: var(--success);
-    color: #002018;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  button#submitBtn:hover {
-    background: #20c38a;
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(40,215,154,0.8);
-  }
-  #message {
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 0.6rem;
-    border-radius: 10px;
-    display: none;
-  }
-  #message.success {
-    background: var(--success);
-    color: #002018;
-    animation: shake 0.6s;
-    box-shadow: 0 0 20px rgba(60,255,201,0.8);
-  }
-  #message.error {
-    background: var(--error);
-    color: white;
-    animation: shake 0.6s;
-    box-shadow: 0 0 20px rgba(255,51,102,0.8);
-  }
-  .watermark {
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    color: var(--muted);
-    opacity: 0.8;
-    text-align: center;
-  }
+    body {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(45deg, #ffecd2, #fcb69f);
+      text-align: center;
+      padding: 50px;
+    }
 
-  /* Animations */
-  @keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    20% { transform: translateX(-6px); }
-    40% { transform: translateX(6px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
-  }
-  @keyframes floaty {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-  }
-</style>
+    h1 {
+      color: #ff4081;
+      animation: goyang 1s infinite alternate;
+    }
+
+    @keyframes goyang {
+      from { transform: rotate(-2deg); }
+      to { transform: rotate(2deg); }
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #555;
+      outline: none;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: #ff9800;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #e65100;
+    }
+
+    /* ALERT STYLING */
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 10px;
+      display: inline-block;
+      min-width: 200px;
+      animation: muncul 0.5s ease;
+    }
+
+    @keyframes muncul {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* warna untuk sukses */
+    .success {
+      background-color: #4caf50;
+      color: white;
+      box-shadow: 0 0 20px #4caf50;
+    }
+
+    /* warna untuk error */
+    .error {
+      background-color: #f44336;
+      color: white;
+      box-shadow: 0 0 20px #f44336;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #333;
+      opacity: 0.8;
+    }
+  </style>
 
 </head>
 <body>
