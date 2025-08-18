@@ -4,132 +4,135 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MathCTF? Tergantung niat</title>
-  <style>
-    :root {
-      --bg: #0b1221;
-      --card: #0b1726;
-      --accent: #2ea8ff;
-      --text: #dbefff;
-      --muted: #94b7d8;
-      --success: #28d79a;
-      --error: #ff4d6d;
-    }
-    body {
-      margin: 0;
-      font-family: "Comic Sans MS", Inter, Roboto, "Segoe UI", system-ui, sans-serif;
-      background: linear-gradient(180deg,var(--bg),#021022);
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 1rem;
-    }
-    main.card {
-      background: var(--card);
-      padding: 2rem;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 720px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      text-align: center;
-      animation: floaty 3s ease-in-out infinite;
-    }
-    h1 {
-      margin: 0 0 .5rem;
-      color: var(--accent);
-      font-size: 1.5rem;
-      animation: bounce 2s infinite;
-    }
-    p {
-      margin: .6rem 0;
-      color: var(--muted);
-    }
-    .actions { margin-top: 1rem; }
-    a.button {
-      display: inline-block;
-      padding: .6rem .9rem;
-      background: var(--accent);
-      color: #021022;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: 0.3s;
-      box-shadow: 0 0 15px rgba(46,168,255,0.5);
-    }
-    a.button:hover {
-      background: #58bbff;
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(46,168,255,0.9);
-    }
-    .form-row { margin-top: 1.25rem; display:flex; gap:.5rem; }
-    input[type=text] {
-      flex: 1;
-      padding: .6rem;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-size: 1rem;
-    }
-    button#submitBtn {
-      padding: .6rem 1rem;
-      border-radius: 10px;
-      border: none;
-      background: var(--success);
-      color: #002018;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button#submitBtn:hover {
-      background: #20c38a;
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(40,215,154,0.8);
-    }
-    #message {
-      margin-top: 1rem;
-      font-size: 1rem;
-      font-weight: bold;
-      padding: 0.6rem;
-      border-radius: 10px;
-      display: none;
-    }
-    #message.success {
-      background: var(--success);
-      color: #021;
-      animation: shake 0.6s;
-    }
-    #message.error {
-      background: var(--error);
-      color: white;
-      animation: shake 0.6s;
-    }
-    .watermark {
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      opacity: 0.8;
-      text-align: center;
-    }
+ <style>
+  :root {
+    --bg: #0b1221;
+    --card: #0b1726;
+    --accent: #2ea8ff;
+    --text: #dbefff;
+    --muted: #94b7d8;
+    --success: #3cffc9; /* lebih neon */
+    --error: #ff3366;   /* merah lebih ngejreng */
+  }
+  body {
+    margin: 0;
+    font-family: "Comic Sans MS", Inter, Roboto, "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg,var(--bg),#021022);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 1rem;
+  }
+  main.card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 720px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    text-align: center;
+    animation: floaty 3s ease-in-out infinite;
+  }
+  h1 {
+    margin: 0 0 .5rem;
+    color: var(--accent);
+    font-size: 1.5rem;
+    animation: bounce 2s infinite;
+  }
+  p {
+    margin: .6rem 0;
+    color: var(--muted);
+  }
+  .actions { margin-top: 1rem; }
+  a.button {
+    display: inline-block;
+    padding: .6rem .9rem;
+    background: var(--accent);
+    color: #021022;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(46,168,255,0.5);
+  }
+  a.button:hover {
+    background: #58bbff;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(46,168,255,0.9);
+  }
+  .form-row { margin-top: 1.25rem; display:flex; gap:.5rem; }
+  input[type=text] {
+    flex: 1;
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    font-size: 1rem;
+  }
+  button#submitBtn {
+    padding: .6rem 1rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--success);
+    color: #002018;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button#submitBtn:hover {
+    background: #20c38a;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(40,215,154,0.8);
+  }
+  #message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.6rem;
+    border-radius: 10px;
+    display: none;
+  }
+  #message.success {
+    background: var(--success);
+    color: #002018;
+    animation: shake 0.6s;
+    box-shadow: 0 0 20px rgba(60,255,201,0.8);
+  }
+  #message.error {
+    background: var(--error);
+    color: white;
+    animation: shake 0.6s;
+    box-shadow: 0 0 20px rgba(255,51,102,0.8);
+  }
+  .watermark {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    opacity: 0.8;
+    text-align: center;
+  }
 
-    /* Animations */
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-    }
-    @keyframes floaty {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-  </style>
+  /* Animations */
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  @keyframes floaty {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+</style>
+
 </head>
 <body>
   <main class="card" role="main" aria-labelledby="title">
