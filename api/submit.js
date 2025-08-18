@@ -15,8 +15,8 @@ export default function handler(req, res) {
   const CORRECT_FLAG = "ptz{dont_brute_me_5layers}";
 
   if (flag === CORRECT_FLAG) {
-    res.status(200).json({ message: "Correct. Well done." });
+    res.status(200).json({ message: "Mantap! Keren juga wkkwkw" });
   } else {
-    res.status(200).json({ message: "Incorrect. Try again." });
+    res.status(200).json({ message: "Salah! Tidur aja, tidur juga enak" });
   }
 }
