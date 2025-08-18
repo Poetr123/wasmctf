@@ -170,9 +170,9 @@
         msg.textContent = data.message;
 
         if (data.success) {
-          msg.className = "Mantap! Jago juga wkkwk!";
+          msg.className = "success!";
         } else {
-          msg.className = "Yah salah. WKwkwk, tidur aja lebih enak";
+          msg.className = "error";
         }
         msg.style.display = "block";
       } catch (e) {
