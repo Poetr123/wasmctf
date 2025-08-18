@@ -1,137 +1,184 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apa nih?</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CTF Challenge — Piecing Math to the Vault</title>
   <style>
+    :root {
+      --bg: #0b1221;
+      --card: #0b1726;
+      --accent: #2ea8ff;
+      --text: #dbefff;
+      --muted: #94b7d8;
+      --success: #28d79a;
+      --error: #ff4d6d;
+    }
     body {
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      text-align: center;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      min-height: 100vh;
+      margin: 0;
+      font-family: "Comic Sans MS", Inter, Roboto, "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(180deg,var(--bg),#021022);
+      color: var(--text);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 1rem;
     }
-
-    h1 {
-      color: #fff;
-      text-shadow: 2px 2px #333;
-      margin-bottom: 20px;
-      animation: bounce 1.5s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .container {
-      background: white;
-      padding: 20px;
+    main.card {
+      background: var(--card);
+      padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      width: 90%;
-      max-width: 400px;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      text-align: center;
+      animation: floaty 3s ease-in-out infinite;
     }
-
-    input {
-      padding: 10px;
-      width: 80%;
+    h1 {
+      margin: 0 0 .5rem;
+      color: var(--accent);
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+    }
+    p {
+      margin: .6rem 0;
+      color: var(--muted);
+    }
+    .actions { margin-top: 1rem; }
+    a.button {
+      display: inline-block;
+      padding: .6rem .9rem;
+      background: var(--accent);
+      color: #021022;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(46,168,255,0.5);
+    }
+    a.button:hover {
+      background: #58bbff;
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(46,168,255,0.9);
+    }
+    .form-row { margin-top: 1.25rem; display:flex; gap:.5rem; }
+    input[type=text] {
+      flex: 1;
+      padding: .6rem;
       border-radius: 10px;
-      border: 2px solid #ccc;
-      font-size: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 1rem;
     }
-
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
+    button#submitBtn {
+      padding: .6rem 1rem;
+      border-radius: 10px;
       border: none;
-      border-radius: 10px;
-      background: #ff4d6d;
-      color: white;
-      font-size: 16px;
+      background: var(--success);
+      color: #002018;
+      font-weight: 700;
       cursor: pointer;
       transition: 0.3s;
     }
-
-    button:hover {
-      background: #ff1e50;
+    button#submitBtn:hover {
+      background: #20c38a;
       transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(40,215,154,0.8);
     }
-
-    .alert {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 10px;
+    #message {
+      margin-top: 1rem;
+      font-size: 1rem;
       font-weight: bold;
+      padding: 0.6rem;
+      border-radius: 10px;
       display: none;
-      animation: fade 0.5s ease-in-out;
     }
-
-    .alert.success {
-      background: #4CAF50;
+    #message.success {
+      background: var(--success);
+      color: #021;
+      animation: shake 0.6s;
+    }
+    #message.error {
+      background: var(--error);
       color: white;
-      box-shadow: 0 0 15px #4CAF50;
-      animation: shake 0.5s ease-in-out;
+      animation: shake 0.6s;
     }
-
-    .alert.error {
-      background: #f44336;
-      color: white;
-      box-shadow: 0 0 15px #f44336;
-      animation: shake 0.5s ease-in-out;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-
     .watermark {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #fff;
-      text-shadow: 1px 1px #000;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
       opacity: 0.8;
+      text-align: center;
+    }
+
+    /* Animations */
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
   </style>
 </head>
 <body>
-  <h1>🚀 Ada apa kira kira ya?? 🤓</h1>
+  <main class="card" role="main" aria-labelledby="title">
+    <h1 id="title">🎲 Piecing Math to the Vault 🔐</h1>
+    <p>Download file <code>kode.txt</code>, kerjain soal nya, terus hasilnya bikin jalur rahasia...</p>
 
-  <div class="container">
-    <p>Clue: “Sesuatu yang kamu cari ada di balik tirai Inspect Element 🎭”</p>
-    <input type="text" id="flagInput" placeholder="Ketik FLAG kamu di sini...">
-    <br>
-    <button onclick="checkFlag()">Kirim Jawaban</button>
-    <div id="alertBox" class="alert"></div>
-  </div>
+    <div class="actions">
+      <a class="button" href="/kode.txt" download>📥 Ambil kode.txt</a>
+    </div>
 
-  <div class="watermark">✨ dibuat oleh Poetra ✨</div>
+    <div class="form-row">
+      <input id="flagInput" type="text" placeholder="Ketik flag kamu (format: ptz{...})" />
+      <button id="submitBtn" onclick="submitFlag()">🚀 Submit</button>
+    </div>
 
-  <script src="flag.js"></script>
+    <div id="message" role="status"></div>
+    <div class="watermark">✨ dibuat oleh Poetra ✨</div>
+  </main>
+
   <script>
-    function checkFlag() {
-      const input = document.getElementById("flagInput").value.trim();
-      const alertBox = document.getElementById("alertBox");
+    async function submitFlag() {
+      const flag = document.getElementById("flagInput").value.trim();
+      const msg = document.getElementById("message");
+      if (!flag) {
+        msg.textContent = "⚠️ Masukin dulu dong flagnya!";
+        msg.className = "error";
+        msg.style.display = "block";
+        return;
+      }
 
-      if (input === FLAG) {
-        alertBox.textContent = "🎉 Yeay! Kamu berhasil menemukan FLAG! 🎉";
-        alertBox.className = "alert success";
-        alertBox.style.display = "block";
-      } else {
-        alertBox.textContent = "😝 Oops, salah bro! Coba lagi!";
-        alertBox.className = "alert error";
-        alertBox.style.display = "block";
+      try {
+        const res = await fetch("/api/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ flag })
+        });
+        const data = await res.json();
+        msg.textContent = data.message;
+
+        if (data.success) {
+          msg.className = "success";
+        } else {
+          msg.className = "error";
+        }
+        msg.style.display = "block";
+      } catch (e) {
+        msg.textContent = "😵‍💫 Server lagi ngambek, coba nanti lagi.";
+        msg.className = "error";
+        msg.style.display = "block";
       }
     }
   </script>
